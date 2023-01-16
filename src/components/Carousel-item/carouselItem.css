@@ -1,0 +1,63 @@
+.carouselItem {
+  height: 300px;
+  width: 250px;
+  background: white;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.carouselItem:hover > .item_image img {
+  height: 72%;
+}
+.item_image {
+  height: 60%;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item_image img {
+  height: 70%;
+
+  object-fit: cover;
+}
+.primary_heading {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.offer {
+  color: #388e3c;
+  font-size: 16px;
+}
+
+.secondary_heading {
+  font-size: 14px;
+  opacity: 0.6;
+}
+@media (max-width: 1000px) {
+  .carouselItem {
+    height: 200px;
+    width: 200px;
+
+    margin: 0 0px;
+  }
+  .primary_heading {
+    font-size: 12px;
+  }
+  .offer {
+    color: #388e3c;
+    font-size: 14px;
+  }
+
+  .secondary_heading {
+    font-size: 12px;
+    opacity: 0.6;
+  }
+}

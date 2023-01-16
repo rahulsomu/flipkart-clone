@@ -1,0 +1,60 @@
+.carousel {
+  height: max-content;
+}
+.banner {
+  height: max-content;
+}
+
+.banner img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.react-multi-carousel-list {
+  height: 100%;
+}
+
+.react-multiple-carousel__arrow--right {
+  right: 0 !important;
+  background: white !important;
+  border-radius: 2px !important;
+  height: 80px;
+  box-shadow: -5px 0 5px rgba(0, 0, 0, 0.055) !important;
+}
+.react-multiple-carousel__arrow--right::before {
+  color: black !important;
+  font-weight: bold;
+}
+
+.react-multiple-carousel__arrow--left {
+  left: 0 !important;
+  background: white !important;
+  border-radius: 2px !important;
+  height: 80px;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.055) !important;
+}
+.react-multiple-carousel__arrow--left::before {
+  color: black !important;
+  font-weight: bold;
+}
+
+@media (max-width: 1000px) {
+  .banner {
+    height: 40vw;
+  }
+  .react-multiple-carousel__arrow--left {
+    height: 50px;
+    min-width: 30px !important;
+  }
+  .react-multiple-carousel__arrow--right {
+    height: 50px;
+    min-width: 30px !important;
+  }
+  .react-multiple-carousel__arrow--left::before {
+    font-size: 12px !important;
+  }
+  .react-multiple-carousel__arrow--right::before {
+    font-size: 12px !important;
+  }
+}
