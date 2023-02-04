@@ -1,6 +1,11 @@
+.wrapper {
+  background-color: white;
+  margin: 10px auto;
+  max-width: 1700px;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
+}
 .categories {
   display: flex;
-  background-color: white;
 }
 .heading {
   width: 200px;
@@ -15,18 +20,21 @@
   font-size: 30px;
   text-align: center;
 }
-.heading button {
-  outline: none;
-  border: none;
-  background: var(--primary);
-  width: max-content;
-  padding: 10px;
-  color: white;
-  font-size: 16px;
+
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.127);
+  align-items: center;
 }
-.category_carousel {
-  width: calc(100% - 200px);
+.title p {
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 500;
 }
+
 @media (max-width: 1000px) {
   .heading {
     display: none;

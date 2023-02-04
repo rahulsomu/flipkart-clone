@@ -11,13 +11,17 @@ import { offers } from "../../Utils/data";
 const Home = () => {
   return (
     <div className="home">
-      <Header />
       <Navbar />
       <Carousel data={mainBanner} full={true} />
       <Ads img={Ad} />
       <Categories
         data={offers}
         heading="Best Of Electronics"
+        category="electronics"
+      />
+      <Categories
+        title="Top Selling Products"
+        data={offers}
         category="electronics"
       />
     </div>

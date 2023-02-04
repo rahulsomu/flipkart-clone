@@ -1,0 +1,136 @@
+.cart_item {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #87878736;
+  flex-direction: column;
+
+  padding: 2rem;
+}
+.cart_item_image {
+  height: 12rem;
+  width: 12rem;
+
+  display: flex;
+  place-items: center;
+  justify-content: center;
+}
+.cart_item_image img {
+  height: 80%;
+  width: 80%;
+  object-fit: contain;
+}
+.cart_item_details {
+  width: calc(100% - 12rem);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cart_item_name {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.cart_item_name p:nth-child(1) {
+  font-size: 1.6rem;
+
+  width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 3rem;
+}
+.cart_item_name p:nth-child(2) {
+  font-size: 1.4rem;
+}
+.cart_item_variant,
+.cart_item_seller {
+  font-size: 1.4rem;
+  display: flex;
+  gap: 0.5rem;
+  color: #878787;
+  align-items: center;
+  height: max-content;
+}
+.cart_item_seller img {
+  width: 6rem;
+  margin-top: -2px;
+}
+.cart_item_price_wrapper {
+}
+.cart_item_price {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-top: 1rem;
+}
+.cart_item_price p:nth-child(1) {
+  color: #878787;
+  font-size: 1.5rem;
+  text-decoration: line-through;
+}
+.cart_item_price p:nth-child(2) {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.cart_item_price span {
+  color: var(--green);
+  font-size: 1.4rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.cart_item_supercoin {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+}
+.cart_item_supercoin img {
+  height: 1.5rem;
+  margin-inline: 4px;
+}
+.cart_item_footer {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+.cart_item_footer button {
+  outline: none;
+  border: none;
+  background: none;
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+}
+.cart_item_footer button:hover {
+  color: var(--primary);
+}
+
+.cart_item_quantity {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.cart_item_quantity button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  outline: none;
+  border-radius: 5rem;
+  border: 1px solid #87878776;
+  padding: 0;
+  font-size: 2rem;
+}
+.cart_item_quantity p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  height: 3rem;
+  width: 6rem;
+  border: 1px solid #8787876e;
+  font-size: 1.4rem;
+  font-weight: bold;
+}

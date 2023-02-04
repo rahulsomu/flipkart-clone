@@ -1,5 +1,8 @@
 .carousel {
   height: max-content;
+  max-width: 1700px;
+  margin: 10px auto;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
 }
 .banner {
   height: max-content;
@@ -13,6 +16,7 @@
 
 .react-multi-carousel-list {
   height: 100%;
+  width: 100% !important;
 }
 
 .react-multiple-carousel__arrow--right {

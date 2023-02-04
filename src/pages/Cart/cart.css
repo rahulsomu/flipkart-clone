@@ -1,0 +1,110 @@
+.cart_wrapper {
+  max-width: 1300px;
+
+  margin: 1rem auto;
+  display: flex;
+  padding: 2rem;
+  min-height: 80vh;
+  gap: 2rem;
+}
+.cart_items_wrapper {
+  width: 70%;
+  max-height: 80vh;
+  background: #fff;
+  position: relative;
+  box-shadow: rgb(0 0 0 / 20%) 0px 1px 2px 0px;
+}
+.cart_price {
+  width: 30%;
+  background: #fff;
+
+  box-shadow: rgb(0 0 0 / 20%) 0px 1px 2px 0px;
+  height: max-content;
+  position: relative;
+}
+.cart_price_header {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: #878787;
+  border-bottom: 1px solid #87878736;
+  padding: 1.5rem 2rem;
+}
+.cart_price_details {
+  padding: 2rem;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cart_price_details_item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.cart_price_details_item span {
+  color: var(--green);
+}
+.cart_price_details_item:last-child {
+  border-bottom: 1px dashed #87878736;
+  padding-bottom: 2rem;
+}
+.total_amount {
+  font-size: 1.8rem;
+  font-weight: bolder;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+.cart_bottom_text {
+  position: absolute;
+  bottom: -4rem;
+  font-size: 1.2rem;
+  text-align: left;
+  left: 52%;
+  transform: translateX(-50%);
+  width: 100%;
+
+  color: #878787;
+  padding: 5px 0 5px 35px;
+  background: url(https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/shield_b33c0c.svg)
+    no-repeat 0 50%;
+  background-size: 25px 35px;
+}
+.cart_items_wrapper .cart_items_place_order {
+  width: 100%;
+  padding: 2rem;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.057);
+  height: 9rem;
+  display: flex;
+  align-items: center;
+}
+.cart_items_place_order button {
+  background: #fb641b;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%);
+  border: none;
+  color: #fff;
+  padding: 2rem 8rem;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.empty_cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: rgb(0 0 0 / 20%) 0px 1px 2px 0px;
+}
+.empty_cart_image {
+  width: 40rem;
+}
+.empty_cart_image img {
+  width: 100%;
+}
