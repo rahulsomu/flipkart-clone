@@ -8,13 +8,17 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import LoginForm from "../LoginForm/LoginForm";
 import { useSelector } from "react-redux";
-import { Button } from "@mui/material";
+import { Button, Drawer } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Link } from "react-router-dom";
 
 const Header = ({ dialogOpen, setDialogOpen, handleClose }) => {
   const userDetails = useSelector((state) => state.userDetails);
+  const [menuOpen, setMenuOpen] = useState(false);
   const cart = useSelector((state) => state.cart).cart;
   const cartCount = cart.reduce((initialValue, currentElement) => {
     initialValue += currentElement.quantity;
@@ -23,6 +27,55 @@ const Header = ({ dialogOpen, setDialogOpen, handleClose }) => {
   return (
     <div className="header">
       <div className="header_wrapper">
+        <button className="ham_menu" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <CloseIcon /> : <MenuIcon />}
+        </button>
+        <Drawer
+          anchor="left"
+          open={menuOpen}
+          onClose={() => setMenuOpen(false)}
+        >
+          <div className="nav_menu">
+            <ul style={{ width: "400px", padding: "5.8rem 1rem 1rem 1rem" }}>
+              <li>
+                {userDetails.data ? (
+                  <p
+                    style={{
+                      color: "var(--primary)",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {`Welcome
+                    ${userDetails.data.userDetails[0].firstName}`}
+                  </p>
+                ) : (
+                  <div
+                    style={{
+                      display: "flex",
+
+                      width: "100%",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                    onClick={() => {
+                      setDialogOpen(true);
+                    }}
+                  >
+                    {" "}
+                    <p>Login</p>
+                    <ArrowForwardIosIcon />
+                  </div>
+                )}
+              </li>
+              <li>
+                <p>Become a Seller </p> <ArrowForwardIosIcon />
+              </li>
+              <li>
+                <p>My Wishlist</p> <ArrowForwardIosIcon />
+              </li>
+            </ul>
+          </div>
+        </Drawer>
         <div className="logo_search">
           <div className="logo">
             <Link to="/">

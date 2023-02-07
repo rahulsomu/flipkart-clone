@@ -35,7 +35,7 @@ const LoginForm = ({ setDialogOpen }) => {
   };
   const registerHandler = (e) => {
     e.preventDefault();
-    console.log(registerData);
+
     dispatch(registerUser(registerData));
   };
 
@@ -51,12 +51,12 @@ const LoginForm = ({ setDialogOpen }) => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "dark",
         }
       );
       dispatch(loggedIn(true));
       setDialogOpen(false);
-      localStorage.setItem("user", JSON.stringify(loginData));
+      localStorage.setItem("user", JSON.stringify({ email: loginData.email }));
       dispatch(clearUserDetailsStatus());
     }
   }, [userDetails.success]);
@@ -70,7 +70,7 @@ const LoginForm = ({ setDialogOpen }) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "dark",
       });
 
       dispatch(clearUserDetailsStatus());
@@ -87,7 +87,7 @@ const LoginForm = ({ setDialogOpen }) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "dark",
       });
       setLoginMode(true);
       setLoginData({ ...loginData, email: registationDetails.data.user.email });

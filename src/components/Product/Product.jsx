@@ -3,6 +3,7 @@ import "./product.css";
 import Carousel from "react-multi-carousel";
 import { formatPrice } from "../../Utils/functions";
 import "react-multi-carousel/lib/styles.css";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Product = ({ productDetails }) => {
   const productImages = [...productDetails?.allImages];
@@ -49,6 +50,9 @@ const Product = ({ productDetails }) => {
   // };
   return (
     <div className="product">
+      <div className="wishlist_icon">
+        <FavoriteIcon />
+      </div>
       <div
         className="product_img"
         // onMouseOver={startAnimation}

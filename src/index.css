@@ -30,3 +30,12 @@ a {
 .Toastify__toast-body {
   font-size: 1.4rem;
 }
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper h2 {
+  font-size: 1.5rem !important;
+}

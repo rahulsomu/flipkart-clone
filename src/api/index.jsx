@@ -25,7 +25,10 @@ export const registerUserApi = async (payload) => {
 
 export const getAllProductsApi = async (payload) => {
   try {
-    const response = await axios.get(`${BASEURL}/product/allproducts`, payload);
+    const response = await axios.get(
+      `${BASEURL}/product/allproducts/?sort=${payload}`,
+      payload
+    );
 
     return response;
   } catch (error) {

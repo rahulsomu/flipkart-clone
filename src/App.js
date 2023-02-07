@@ -17,13 +17,7 @@ const App = () => {
   const handleClose = () => {
     setDialogOpen(false);
   };
-  useEffect(() => {
-    const cartData = JSON.parse(localStorage.getItem("cart"));
-    console.log(cartData.cart);
-    // if (cartData.cart) {
-    //   dispatch(addItem(...cartData.cart));
-    // }
-  }, []);
+
   return (
     <div className="App">
       <ToastContainer />

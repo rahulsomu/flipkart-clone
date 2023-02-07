@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Product from "../../components/Product/Product";
 import "./products.css";
@@ -13,24 +13,22 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const { loading, success } = useSelector((state) => state.allProducts);
+  const { loading, success, error } = useSelector((state) => state.allProducts);
   const products = useSelector((state) => state.allProducts).data.data;
-  const [age, setAge] = React.useState("");
-
+  const [age, setAge] = useState("");
+  const sort = localStorage.getItem("sortType") || "1";
+  const [sortType, setSortType] = useState(sort);
   const handleChange = (event) => {
     setAge(event.target.value);
   };
   useEffect(() => {
-    dispatch(getAllProducts());
+    localStorage.removeItem("sortType");
+    setSortType(sort);
+    if (sortType) dispatch(getAllProducts(sortType));
   }, []);
   return (
     <div className="product_wrapper">
-      {loading ? (
-        <div className="loader_wrapper">
-          <CircularProgress />
-          <p>Loading! Please wait..</p>
-        </div>
-      ) : success ? (
+      {success ? (
         <>
           <div className="filter_section">
             <div className="filter_heading">Filters</div>
@@ -41,15 +39,72 @@ const Products = () => {
             </div>
             <div className="products_heading">
               <p>
-                Home <span>(Showing 1 – 40 products of 14,511 products)</span>
+                Home{" "}
+                <span>
+                  (
+                  {`Showing 1 – ${products?.length} products of ${products?.length} products`}
+                  )
+                </span>
               </p>
             </div>
             <div className="sorting">
               <p>Sort By</p>
-              <button>Popularity</button>
-              <button>Price - Low to High</button>
-              <button>Price - High to Low</button>
-              <button>Newest First</button>
+              <button
+                style={{
+                  color: sortType === "1" ? "var(--primary)" : "black",
+                  borderBottom:
+                    sortType === "1" ? "1px solid var(--primary)" : "none",
+                }}
+                onClick={() => {
+                  setSortType("1");
+                  localStorage.setItem("sortType", "1");
+                  dispatch(getAllProducts(1));
+                }}
+              >
+                Popularity
+              </button>
+              <button
+                style={{
+                  color: sortType === "2" ? "var(--primary)" : "black",
+                  borderBottom:
+                    sortType === "2" ? "1px solid var(--primary)" : "none",
+                }}
+                onClick={() => {
+                  setSortType("2");
+                  localStorage.setItem("sortType", "2");
+                  dispatch(getAllProducts(2));
+                }}
+              >
+                Price - Low to High
+              </button>
+              <button
+                style={{
+                  color: sortType === "3" ? "var(--primary)" : "black",
+                  borderBottom:
+                    sortType === "3" ? "1px solid var(--primary)" : "none",
+                }}
+                onClick={() => {
+                  setSortType("3");
+                  localStorage.setItem("sortType", "3");
+                  dispatch(getAllProducts(3));
+                }}
+              >
+                Price - High to Low
+              </button>
+              <button
+                style={{
+                  color: sortType === "4" ? "var(--primary)" : "black",
+                  borderBottom:
+                    sortType === "4" ? "1px solid var(--primary)" : "none",
+                }}
+                onClick={() => {
+                  setSortType("4");
+                  localStorage.setItem("sortType", "4");
+                  dispatch(getAllProducts(4));
+                }}
+              >
+                Newest First
+              </button>
             </div>
             <div className="sort_dropdown">
               <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
@@ -78,15 +133,20 @@ const Products = () => {
             </div>
           </div>
         </>
-      ) : (
+      ) : error ? (
         <div className="error_wrapper">
           <p style={{ fontSize: "2rem" }}>Error reaching our servers :(</p>
           <button
             className="primary_btn"
-            onClick={() => dispatch(getAllProducts())}
+            onClick={() => dispatch(getAllProducts(sortType))}
           >
             Try again
           </button>
+        </div>
+      ) : (
+        <div className="loader_wrapper">
+          <CircularProgress />
+          <p>Loading! Please wait..</p>
         </div>
       )}
     </div>

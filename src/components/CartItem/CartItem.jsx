@@ -10,8 +10,13 @@ import { useDispatch } from "react-redux";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { toast } from "react-toastify";
+import Dialog from "@mui/material/Dialog";
+import { useState } from "react";
+import { DialogActions, DialogTitle } from "@mui/material";
+
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
+  const [dialogOpen, setDialogOpen] = useState(false);
   const rupeeSymbol = "₹";
 
   const calculateDiscount = (cp, sp) => {
@@ -43,6 +48,9 @@ const CartItem = ({ item }) => {
   };
   const removeItemFromCart = (id) => {
     dispatch(removeItem(id));
+  };
+  const handleClose = () => {
+    setDialogOpen(false);
   };
   return (
     <div className="cart_item">
@@ -87,7 +95,7 @@ const CartItem = ({ item }) => {
             </div>
             <div className="cart_item_supercoin">
               <p>{`Or Pay ${rupeeSymbol}${formatPrice(
-                item.sellingPrice - 50
+                item.sellingPrice - 60
               )} + `}</p>
               <img
                 src="https://rukminim1.flixcart.com/www/100/100/promos/18/07/2019/4aebbd99-7478-411e-aced-265e7722d18d.png?q=90"
@@ -131,11 +139,31 @@ const CartItem = ({ item }) => {
         </div>
         <button
           onClick={() => {
-            removeItemFromCart(item);
+            setDialogOpen(true);
           }}
         >
           REMOVE
         </button>
+        <Dialog onClose={handleClose} open={dialogOpen}>
+          <DialogTitle id="alert-dialog-title">
+            {`Remove ${item.productName} from Cart? `}
+          </DialogTitle>
+          <DialogActions>
+            <button className="primary_btn" onClick={handleClose}>
+              Cancel
+            </button>
+            <button
+              className="primary_btn"
+              style={{ background: "red" }}
+              onClick={() => {
+                removeItemFromCart(item);
+                handleClose();
+              }}
+            >
+              Remove
+            </button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   );

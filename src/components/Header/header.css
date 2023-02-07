@@ -18,6 +18,32 @@
 .logo {
   cursor: pointer;
 }
+.ham_menu {
+  height: 80%;
+  margin-right: 1rem;
+  background: none;
+  outline: none;
+  border: none;
+  display: none;
+}
+.ham_menu svg {
+  font-size: 2rem;
+  color: #fff;
+}
+.nav_menu li {
+  font-size: 1.4rem;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.26);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  color: #878787;
+  cursor: pointer;
+}
+.nav_menu svg {
+  color: var(--primary);
+}
 .logo_search {
   display: flex;
   gap: 10px;
@@ -149,6 +175,9 @@
   }
   .header_links {
     width: 20%;
+  }
+  .ham_menu {
+    display: block;
   }
 }
 @media (max-width: 500px) {
