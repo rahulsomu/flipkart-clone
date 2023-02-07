@@ -1,5 +1,11 @@
 import axios from "axios";
-let BASEURL = "http://localhost:8000";
+
+const currentURL = window.location.origin;
+
+let BASEURL =
+  currentURL == "https://my-flipkart.netlify.app"
+    ? "https://flipkart-backend-4sym.onrender.com"
+    : "http://localhost:8000";
 
 export const getUserDetailsApi = async (payload) => {
   try {
