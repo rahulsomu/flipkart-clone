@@ -150,6 +150,11 @@ html {
 }
 
 @media (max-width: 634px) {
+  .products_section {
+    width: 100%;
+
+    padding: 1rem 1.5rem;
+  }
   .sort_dropdown {
     display: flex;
     border-bottom: 1px solid rgba(0, 0, 0, 0.13);
@@ -157,15 +162,10 @@ html {
   .sorting {
     display: none;
   }
+  .filter_section {
+    display: none;
+  }
 }
 
 @media (max-width: 500px) {
-  .filter_section {
-    width: 10rem;
-  }
-  .products_section {
-    width: calc(100% - 10rem);
-
-    padding: 1rem 1.5rem;
-  }
 }

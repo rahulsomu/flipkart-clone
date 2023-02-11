@@ -90,6 +90,9 @@ const Header = ({ dialogOpen, setDialogOpen, handleClose }) => {
             <SearchIcon />
           </div>
         </div>
+        <button className="header_btn_search">
+          <SearchIcon />
+        </button>
 
         <div className="header_links">
           <ul>
@@ -141,7 +144,10 @@ const Header = ({ dialogOpen, setDialogOpen, handleClose }) => {
                 </button>
               )}
               <Dialog onClose={handleClose} open={dialogOpen}>
-                <LoginForm setDialogOpen={setDialogOpen} />
+                <LoginForm
+                  setDialogOpen={setDialogOpen}
+                  setMenuOpen={setMenuOpen}
+                />
               </Dialog>
             </li>
             <li>
@@ -153,6 +159,7 @@ const Header = ({ dialogOpen, setDialogOpen, handleClose }) => {
                 <KeyboardArrowDownIcon style={{ fontSize: "14px" }} />
               </button>
             </li>
+
             <li>
               <Link to="/cart">
                 <button

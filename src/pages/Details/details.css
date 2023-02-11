@@ -53,6 +53,8 @@
   align-items: center;
   border-radius: 50px;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.137);
+  outline: none;
+  border: none;
 }
 .wishlist_icon_details svg {
   font-size: 2rem;

@@ -4,6 +4,7 @@ import {
   INCREASE_QUANTITY,
   LOGGED_IN,
   REMOVE_ITEM,
+  WISHLIST_ITEMS,
 } from "../constants/actionTypes";
 
 export const addCartItemReducer = (
@@ -90,6 +91,29 @@ export const loggedInReducer = (
   switch (action.type) {
     case LOGGED_IN: {
       return { ...state, status: action.payload };
+    }
+
+    default: {
+      return state;
+    }
+  }
+};
+
+export const wishlistItemsReducer = (
+  state = {
+    wishlist: [],
+  },
+  action
+) => {
+  switch (action.type) {
+    case WISHLIST_ITEMS: {
+      return {
+        ...state,
+        wishlist:
+          state.wishlist.filter((item) => item === action.payload).length > 0
+            ? state.wishlist.filter((item) => item !== action.payload)
+            : [...state.wishlist, action.payload],
+      };
     }
 
     default: {

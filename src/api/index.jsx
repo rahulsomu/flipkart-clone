@@ -66,3 +66,28 @@ export const addItemToCartApi = async (payload) => {
     };
   }
 };
+
+export const addToWishlistApi = async (payload) => {
+  try {
+    const response = await axios.post(`${BASEURL}/user/addToWishlist`, payload);
+    return response;
+  } catch (error) {
+    return {
+      error: error.response.status,
+    };
+  }
+};
+
+export const removeFromWishlistApi = async (payload) => {
+  try {
+    const response = await axios.post(
+      `${BASEURL}/user/removeFromWishlist`,
+      payload
+    );
+    return response;
+  } catch (error) {
+    return {
+      error: error.response.status,
+    };
+  }
+};

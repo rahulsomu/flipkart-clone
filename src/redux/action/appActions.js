@@ -4,6 +4,7 @@ import {
   INCREASE_QUANTITY,
   LOGGED_IN,
   REMOVE_ITEM,
+  WISHLIST_ITEMS,
 } from "../constants/actionTypes";
 
 export const addItem = (payload) => ({
@@ -26,5 +27,10 @@ export const decreaseQuantity = (payload) => ({
 
 export const loggedIn = (payload) => ({
   type: LOGGED_IN,
+  payload: payload,
+});
+
+export const wishlistItems = (payload) => ({
+  type: WISHLIST_ITEMS,
   payload: payload,
 });

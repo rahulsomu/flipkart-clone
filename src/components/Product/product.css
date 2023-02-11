@@ -16,8 +16,8 @@ html {
 }
 .wishlist_icon {
   background: rgba(255, 255, 255, 0.192);
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   position: absolute;
   top: 0;
   right: 0;
@@ -25,10 +25,11 @@ html {
   justify-content: center;
   align-items: center;
   border-radius: 50px;
+  border: none;
+  outline: none;
 }
 .wishlist_icon svg {
   font-size: 2rem;
-  color: #87878793;
 }
 .product_img {
   height: 40rem;
@@ -131,11 +132,5 @@ html {
 
     padding: 1rem;
     margin-bottom: 7rem;
-  }
-}
-
-@media (max-width: 500px) {
-  html {
-    font-size: 45% !important;
   }
 }

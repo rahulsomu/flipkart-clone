@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./product.css";
 import Carousel from "react-multi-carousel";
 import { formatPrice } from "../../Utils/functions";
 import "react-multi-carousel/lib/styles.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useDispatch, useSelector } from "react-redux";
+import { wishlistItems } from "../../redux/action/appActions";
+import { Link } from "react-router-dom";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../../redux/action/wishlistAction";
+import { toast } from "react-toastify";
 
-const Product = ({ productDetails }) => {
+const Product = ({ productDetails, wishlisted }) => {
+  const dispatch = useDispatch();
   const productImages = [...productDetails?.allImages];
-  const [imgCarousel, setImgCarousel] = useState(false);
+  const user = useSelector((state) => state.userDetails);
+  const userId = user.data && user.data?.userDetails[0]?._id;
+  const wishlist = useSelector((state) => state.wishlist).wishlist;
+
+  const userDetails = user.success && user?.data?.userDetails[0];
   let num = 0;
   const [imgIndex, setImgIndex] = useState(num);
 
@@ -37,88 +50,77 @@ const Product = ({ productDetails }) => {
   };
   const fAssured =
     "https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png";
-  let id;
-  // const startAnimation = () => {
-  //   id = setInterval(() => {
-  //     setImgIndex(num + 1);
-  //     console.log("mouseEnter");
-  //   }, 2000);
-  // };
-  // const stopAnimation = () => {
-  //   clearInterval(id);
-  //   console.log("mouseLeave");
-  // };
+  const wishlistHandler = () => {
+    wishlist.filter((item) => item === productDetails._id).length > 0
+      ? dispatch(removeFromWishlist({ ...productDetails, userId }))
+      : dispatch(addToWishlist({ ...productDetails, userId }));
+  };
+
   return (
     <div className="product">
-      <div className="wishlist_icon">
-        <FavoriteIcon />
-      </div>
-      <div
-        className="product_img"
-        // onMouseOver={startAnimation}
-        // onMouseOut={stopAnimation}
-      >
-        {/* {!imgCarousel ? (
-          <Carousel
-            swipeable={false}
-            draggable={false}
-            infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={4000}
-            transitionDuration={500}
-            responsive={responsive}
-            removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
-          >
-            {productDetails?.allImages.map((image) => (
-              <img src={image} alt="prod-image" />
-            ))}
-          </Carousel>
-        ) : ( */}
-        <img
-          src={productImages ? productImages[num] : productDetails?.mainImage}
-          alt="prod-image"
+      <button className="wishlist_icon" onClick={wishlistHandler}>
+        <FavoriteIcon
+          style={{
+            color:
+              wishlist?.filter((item) => item == productDetails._id).length > 0
+                ? "red"
+                : "#87878793",
+          }}
         />
-        {/* )} */}
-      </div>
-      <div className="product_info">
-        <div className="product_brand">
-          <p>{productDetails.brand}</p>
-        </div>
-        <div className="product_name">
-          <p>{productDetails.productName}</p>
-          <div className="fAssured">
-            <img src={fAssured} alt="fassured" />
+      </button>
+      <Link to={`/details/${productDetails._id}`} key={productDetails._id}>
+        <>
+          {" "}
+          <div className="product_img">
+            <img
+              src={
+                productImages ? productImages[num] : productDetails?.mainImage
+              }
+              alt="prod-image"
+            />
+            {/* )} */}
           </div>
-        </div>
-        <div className="product_price">
-          <p className="selling_price">{`${rupeeSymbol}${formatPrice(
-            productDetails.sellingPrice
-          )}`}</p>
-          <p className="mrp">{`${rupeeSymbol}${formatPrice(
-            productDetails.mrp
-          )}`}</p>
-          <p className="discount">
-            {`${calculateDiscount(
-              productDetails.mrp,
-              productDetails.sellingPrice
-            )}% off`}
-          </p>
-        </div>
+          <div className="product_info">
+            <div className="product_brand">
+              <p>{productDetails.brand}</p>
+            </div>
+            <div className="product_name">
+              <p>{productDetails.productName}</p>
+              <div className="fAssured">
+                <img src={fAssured} alt="fassured" />
+              </div>
+            </div>
+            <div className="product_price">
+              <p className="selling_price">{`${rupeeSymbol}${formatPrice(
+                productDetails.sellingPrice
+              )}`}</p>
+              <p className="mrp">{`${rupeeSymbol}${formatPrice(
+                productDetails.mrp
+              )}`}</p>
+              <p className="discount">
+                {`${calculateDiscount(
+                  productDetails.mrp,
+                  productDetails.sellingPrice
+                )}% off`}
+              </p>
+            </div>
 
-        <div className="product_sizes">
-          {productDetails.variant && (
-            <>
-              <p>{productDetails.variant?.type}: </p>
-              {productDetails.variant?.values?.map((values, i) => (
-                <p key={i}>
-                  {values.toUpperCase()}
-                  {i !== productDetails.variant?.values?.length - 1 && ","}
-                </p>
-              ))}
-            </>
-          )}
-        </div>
-      </div>
+            <div className="product_sizes">
+              {productDetails.variant && (
+                <>
+                  <p>{productDetails.variant?.type}: </p>
+                  {productDetails.variant?.values?.map((values, i) => (
+                    <p key={i}>
+                      {values.toUpperCase()}
+                      {i !== productDetails.variant?.values?.length - 1 && ","}
+                    </p>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+        </>
+      </Link>
     </div>
   );
 };

@@ -8,7 +8,11 @@ import StarIcon from "@mui/icons-material/Star";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import "./details.css";
 import { addItemToCart } from "../../redux/action/addItemToCartAction";
-import { addItem, increaseQuantity } from "../../redux/action/appActions";
+import {
+  addItem,
+  increaseQuantity,
+  wishlistItems,
+} from "../../redux/action/appActions";
 import { toast } from "react-toastify";
 import { formatPrice } from "../../Utils/functions";
 import { CircularProgress, Dialog } from "@mui/material";
@@ -25,6 +29,7 @@ const Details = ({ dialogOpen, setDialogOpen, handleClose }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { data, success, error } = productDetails;
   const prodData = success && data?.data[0];
+  const wishlist = useSelector((state) => state.wishlist).wishlist;
 
   const [image, setImage] = useState("");
   const [variantSelected, setVariantSelected] = useState(null);
@@ -98,6 +103,10 @@ const Details = ({ dialogOpen, setDialogOpen, handleClose }) => {
   const handleImageDialog = () => {
     setImageDialogOpen(false);
   };
+  const wishlistHandler = () => {
+    dispatch(wishlistItems(prodData));
+    console.log(wishlist);
+  };
   useEffect(() => {
     dispatch(getProductDetails(id));
     if (image) {
@@ -116,9 +125,16 @@ const Details = ({ dialogOpen, setDialogOpen, handleClose }) => {
                 ))}
               </div>
               <div className="main_image">
-                <div className="wishlist_icon_details">
-                  <FavoriteIcon />
-                </div>
+                <button
+                  className="wishlist_icon_details"
+                  onClick={wishlistHandler}
+                >
+                  <FavoriteIcon
+                    style={{
+                      color: wishlist.includes(prodData) ? "red" : "#87878793",
+                    }}
+                  />
+                </button>
                 <img
                   src={image ? image : prodData?.mainImage}
                   onClick={() => setImageDialogOpen(true)}

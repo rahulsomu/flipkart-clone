@@ -10,17 +10,67 @@ import { useEffect } from "react";
 import { getAllProducts } from "../../redux/action/getAllProductsAction";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
+import { toast } from "react-toastify";
+import { wishlistItems } from "../../redux/action/appActions";
+import {
+  clearAddToWishlistStatus,
+  clearRemoveFromWishlistStatus,
+} from "../../redux/action/wishlistAction";
 
 const Products = () => {
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.allProducts);
   const products = useSelector((state) => state.allProducts).data.data;
+  const wishlist = useSelector((state) => state.wishlist).wishlist;
+  const addToWishlistStatus = useSelector((state) => state.addToWishlist);
+  const removeFromWishlistStatus = useSelector(
+    (state) => state.removeFromWishlist
+  );
+  const user = useSelector((state) => state.userDetails);
+  const userDetails = user.data?.userDetails && user.data?.userDetails[0];
   const [age, setAge] = useState("");
   const sort = localStorage.getItem("sortType") || "1";
   const [sortType, setSortType] = useState(sort);
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+  useEffect(() => {
+    if (addToWishlistStatus.success) {
+      toast.success(`Added to Wishlist`, {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      dispatch(wishlistItems(addToWishlistStatus.data.data));
+      dispatch(clearAddToWishlistStatus());
+    }
+  }, [addToWishlistStatus.success]);
+  useEffect(() => {
+    if (removeFromWishlistStatus.success) {
+      toast.success(`Removed From Wishlist`, {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      dispatch(wishlistItems(removeFromWishlistStatus.data.data));
+      dispatch(clearRemoveFromWishlistStatus());
+    }
+  }, [removeFromWishlistStatus.success]);
+  useEffect(() => {
+    if (user.data) {
+      userDetails?.wishlist?.map((item) => dispatch(wishlistItems(item._id)));
+    }
+  }, [user.data]);
   useEffect(() => {
     localStorage.removeItem("sortType");
     setSortType(sort);
@@ -126,9 +176,11 @@ const Products = () => {
             </div>
             <div className="product_grid">
               {products?.map((data, index) => (
-                <Link to={`/details/${data._id}`} key={data._id}>
-                  <Product productDetails={data} />
-                </Link>
+                <Product
+                  productDetails={data}
+                  key={index}
+                  wishlisted={wishlist.includes(data) ? true : false}
+                />
               ))}
             </div>
           </div>

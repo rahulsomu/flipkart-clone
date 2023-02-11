@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { loggedIn } from "../../redux/action/appActions";
 
-const LoginForm = ({ setDialogOpen }) => {
+const LoginForm = ({ setDialogOpen, setMenuOpen }) => {
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails);
   const registationDetails = useSelector((state) => state.registerUser);
@@ -56,13 +56,14 @@ const LoginForm = ({ setDialogOpen }) => {
       );
       dispatch(loggedIn(true));
       setDialogOpen(false);
+      setMenuOpen(false);
       localStorage.setItem("user", JSON.stringify({ email: loginData.email }));
       dispatch(clearUserDetailsStatus());
     }
   }, [userDetails.success]);
   useEffect(() => {
     if (userDetails.error) {
-      toast.error("User does not Exist", {
+      toast.error("Invalid Username/Password", {
         position: "bottom-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -72,7 +73,7 @@ const LoginForm = ({ setDialogOpen }) => {
         progress: undefined,
         theme: "dark",
       });
-
+      setLoginData({ ...loginData, password: "" });
       dispatch(clearUserDetailsStatus());
     }
   }, [userDetails.error]);
@@ -141,7 +142,15 @@ const LoginForm = ({ setDialogOpen }) => {
                 By continuing, you agree to Flipkart's <span>Terms of Use</span>{" "}
                 and <span>Privacy Policy</span>.
               </p>
-              <button className="submit" onClick={loginhandler}>
+              <button
+                className="submit"
+                onClick={loginhandler}
+                disabled={
+                  !loginData.email ||
+                  !loginData.password ||
+                  loginData.password?.length <= 5
+                }
+              >
                 Login
               </button>
             </>
