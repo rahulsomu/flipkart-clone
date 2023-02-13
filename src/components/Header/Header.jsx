@@ -14,12 +14,17 @@ import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 
 const Header = ({ dialogOpen, setDialogOpen, handleClose }) => {
   const userDetails = useSelector((state) => state.userDetails);
+  const user = userDetails.data && userDetails?.data?.userDetails[0];
+
   const [menuOpen, setMenuOpen] = useState(false);
   const cart = useSelector((state) => state.cart).cart;
+  const wishlist = useSelector((state) => state.wishlist).wishlist;
   const cartCount = cart.reduce((initialValue, currentElement) => {
     initialValue += currentElement.quantity;
     return initialValue;
@@ -70,8 +75,14 @@ const Header = ({ dialogOpen, setDialogOpen, handleClose }) => {
               <li>
                 <p>Become a Seller </p> <ArrowForwardIosIcon />
               </li>
+
               <li>
-                <p>My Wishlist</p> <ArrowForwardIosIcon />
+                <Link to="profile/wishlist" onClick={() => setMenuOpen(false)}>
+                  <>
+                    {" "}
+                    <p>My Wishlist</p> <ArrowForwardIosIcon />
+                  </>
+                </Link>
               </li>
             </ul>
           </div>
@@ -130,12 +141,38 @@ const Header = ({ dialogOpen, setDialogOpen, handleClose }) => {
                     style={{ fontSize: "14px" }}
                   />
                   <div className="dropdown">
+                    <div className="dropdown_arrow">
+                      <div className="arrow"></div>
+                    </div>
                     <ul>
                       <li>
-                        <FavoriteIcon />
-                        My Wishlist
+                        <Link to="profile/profile">
+                          <>
+                            <AccountCircleIcon />
+                            My Profile
+                          </>
+                        </Link>
                       </li>
                       <li>
+                        <Link to="profile/orders">
+                          <>
+                            <InventoryIcon />
+                            Orders
+                          </>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="profile/wishlist">
+                          <>
+                            <FavoriteIcon />
+                            Wishlist
+                          </>
+                        </Link>
+                        <p className="wishlist_count">
+                          {user.wishlist?.length}
+                        </p>
+                      </li>
+                      <li style={{ padding: "20px" }}>
                         <PowerSettingsNewIcon />
                         Logout
                       </li>

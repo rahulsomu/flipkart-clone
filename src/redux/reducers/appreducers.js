@@ -107,11 +107,16 @@ export const wishlistItemsReducer = (
 ) => {
   switch (action.type) {
     case WISHLIST_ITEMS: {
+      console.log(typeof action.payload, "typeof");
       return {
         ...state,
         wishlist:
           state.wishlist.filter((item) => item === action.payload).length > 0
-            ? state.wishlist.filter((item) => item !== action.payload)
+            ? typeof action.payload === "string"
+              ? state.wishlist.filter((item) => item !== action.payload)
+              : [...state.wishlist.filter((item) => item !== action.payload)]
+            : typeof action.payload === "string"
+            ? [...state.wishlist, action.payload]
             : [...state.wishlist, action.payload],
       };
     }

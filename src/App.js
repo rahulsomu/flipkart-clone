@@ -9,6 +9,7 @@ import Cart from "./pages/Cart/Cart";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "./redux/action/appActions";
+import Profile from "./pages/Profile/Profile";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const App = () => {
           }
         ></Route>
         <Route path="cart" element={<Cart />}></Route>
+        <Route path="profile/:tab" element={<Profile />}></Route>
       </Routes>
     </div>
   );

@@ -75,6 +75,13 @@
   height: 50px;
   font-size: 16px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.submit span {
+  width: 20px !important;
+  height: 20px !important;
 }
 .submit:disabled {
   background: rgb(185, 185, 185) !important;

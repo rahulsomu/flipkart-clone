@@ -29,6 +29,7 @@ a {
 }
 .Toastify__toast-body {
   font-size: 1.4rem;
+  z-index: 999999;
 }
 
 .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
@@ -38,4 +39,13 @@ a {
 
 .css-1t1j96h-MuiPaper-root-MuiDialog-paper h2 {
   font-size: 1.5rem !important;
+}
+.Toastify__toast-container {
+  z-index: 9999999 !important;
+  width: 300px !important;
+}
+.Toastify__toast-container--top-center {
+  top: 10 !important;
+  transform: translateX(-50%) !important;
+  left: 50% !important;
 }

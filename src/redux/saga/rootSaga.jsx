@@ -4,12 +4,14 @@ import addToWishlistWatcher from "./addToWishlistSaga";
 import getAllProductsWatcher from "./getAllProductsSaga";
 import getProductDetailsWatcher from "./getProductDetailsSaga";
 import userDetailsWatcher from "./getUserDetailsSaga";
+import loginWatcher from "./loginSaga";
 import registerUserWatcher from "./registerUserSaga";
 import removeFromWishlistWatcher from "./removeFromWishlistSaga";
 
 export default function* rootSaga() {
   const SAGAS = [
     userDetailsWatcher,
+    loginWatcher,
     registerUserWatcher,
     getAllProductsWatcher,
     getProductDetailsWatcher,

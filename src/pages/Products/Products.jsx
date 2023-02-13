@@ -16,6 +16,7 @@ import {
   clearAddToWishlistStatus,
   clearRemoveFromWishlistStatus,
 } from "../../redux/action/wishlistAction";
+import { getUserDetails } from "../../redux/action/getUserDetailsAction";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const Products = () => {
     (state) => state.removeFromWishlist
   );
   const user = useSelector((state) => state.userDetails);
-  const userDetails = user.data?.userDetails && user.data?.userDetails[0];
+  const userDetails = user.data?.userDetails && user.data?.userDetails[0]._id;
   const [age, setAge] = useState("");
   const sort = localStorage.getItem("sortType") || "1";
   const [sortType, setSortType] = useState(sort);
@@ -37,8 +38,8 @@ const Products = () => {
   useEffect(() => {
     if (addToWishlistStatus.success) {
       toast.success(`Added to Wishlist`, {
-        position: "bottom-center",
-        autoClose: 3000,
+        position: "top-center",
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -46,15 +47,15 @@ const Products = () => {
         progress: undefined,
         theme: "dark",
       });
-      dispatch(wishlistItems(addToWishlistStatus.data.data));
+      dispatch(getUserDetails({ userId: userDetails }));
       dispatch(clearAddToWishlistStatus());
     }
   }, [addToWishlistStatus.success]);
   useEffect(() => {
     if (removeFromWishlistStatus.success) {
       toast.success(`Removed From Wishlist`, {
-        position: "bottom-center",
-        autoClose: 3000,
+        position: "top-center",
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -62,15 +63,11 @@ const Products = () => {
         progress: undefined,
         theme: "dark",
       });
-      dispatch(wishlistItems(removeFromWishlistStatus.data.data));
+      dispatch(getUserDetails({ userId: userDetails }));
       dispatch(clearRemoveFromWishlistStatus());
     }
   }, [removeFromWishlistStatus.success]);
-  useEffect(() => {
-    if (user.data) {
-      userDetails?.wishlist?.map((item) => dispatch(wishlistItems(item._id)));
-    }
-  }, [user.data]);
+
   useEffect(() => {
     localStorage.removeItem("sortType");
     setSortType(sort);

@@ -9,11 +9,13 @@ import {
 import getAllProductsReducer from "./getAllProductsReducer";
 import getProductDetailsReducer from "./getProductDetailsReducer";
 import getUserDetailsReducer from "./getUserDetailsReducer";
+import loginReducer from "./loginReducer";
 import registerUserReducer from "./registerUserReducer";
 import removeFromWishlistReducer from "./removeFromWishlistReducer";
 
 const reducers = combineReducers({
   userDetails: getUserDetailsReducer,
+  login: loginReducer,
   registerUser: registerUserReducer,
   allProducts: getAllProductsReducer,
   productDetails: getProductDetailsReducer,

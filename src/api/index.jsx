@@ -7,9 +7,20 @@ let BASEURL =
     ? "https://flipkart-backend-4sym.onrender.com"
     : "http://localhost:8000";
 
-export const getUserDetailsApi = async (payload) => {
+export const loginApi = async (payload) => {
   try {
     const response = await axios.post(`${BASEURL}/user/login`, payload);
+    return response;
+  } catch (error) {
+    return {
+      error: error.response.status,
+    };
+  }
+};
+
+export const getUserDetailsApi = async (payload) => {
+  try {
+    const response = await axios.post(`${BASEURL}/user/details`, payload);
     return response;
   } catch (error) {
     return {

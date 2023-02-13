@@ -20,7 +20,8 @@ const Product = ({ productDetails, wishlisted }) => {
   const userId = user.data && user.data?.userDetails[0]?._id;
   const wishlist = useSelector((state) => state.wishlist).wishlist;
 
-  const userDetails = user.success && user?.data?.userDetails[0];
+  const userDetails = user.data && user?.data?.userDetails[0];
+
   let num = 0;
   const [imgIndex, setImgIndex] = useState(num);
 
@@ -51,23 +52,28 @@ const Product = ({ productDetails, wishlisted }) => {
   const fAssured =
     "https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png";
   const wishlistHandler = () => {
-    wishlist.filter((item) => item === productDetails._id).length > 0
+    userDetails.wishlist.filter((item) => item._id === productDetails._id)
+      .length > 0
       ? dispatch(removeFromWishlist({ ...productDetails, userId }))
       : dispatch(addToWishlist({ ...productDetails, userId }));
   };
 
   return (
     <div className="product">
-      <button className="wishlist_icon" onClick={wishlistHandler}>
-        <FavoriteIcon
-          style={{
-            color:
-              wishlist?.filter((item) => item == productDetails._id).length > 0
-                ? "red"
-                : "#87878793",
-          }}
-        />
-      </button>
+      {userDetails && (
+        <button className="wishlist_icon" onClick={wishlistHandler}>
+          <FavoriteIcon
+            style={{
+              color:
+                userDetails.wishlist?.filter(
+                  (item) => item._id == productDetails._id
+                ).length > 0
+                  ? "red"
+                  : "#87878793",
+            }}
+          />
+        </button>
+      )}
       <Link to={`/details/${productDetails._id}`} key={productDetails._id}>
         <>
           {" "}

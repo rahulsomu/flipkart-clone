@@ -122,8 +122,8 @@ const CartItem = ({ item }) => {
                 dispatch(increaseQuantity(item));
               } else {
                 toast.error("Maximum 5 quantity is Allowed per User", {
-                  position: "bottom-center",
-                  autoClose: 3000,
+                  position: "top-center",
+                  autoClose: 2000,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,

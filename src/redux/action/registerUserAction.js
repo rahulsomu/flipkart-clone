@@ -21,7 +21,3 @@ export const registerUserFailed = (error) => ({
   type: REGISTER_USER_FAILED,
   payload: error,
 });
-// export const clearRegistationInfo = (error) => ({
-//   type: CLEAR_REGISTATION_STATUS,
-//   payload: error,
-// });

@@ -9,11 +9,17 @@ import { registerUser } from "../../redux/action/registerUserAction";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { loggedIn } from "../../redux/action/appActions";
+import { CircularProgress } from "@mui/material";
+import { clearLoginStatus } from "../../redux/action/loginAction";
+import { login } from "../../redux/action/loginAction";
 
 const LoginForm = ({ setDialogOpen, setMenuOpen }) => {
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails);
+  const loginDetails = useSelector((state) => state.login);
+  const userId = loginDetails.data && loginDetails.data?.userDetails[0]?._id;
   const registationDetails = useSelector((state) => state.registerUser);
+  const loginStatus = useSelector((state) => state.loggedIn).status;
 
   const [loginMode, setLoginMode] = useState(true);
   const [loginData, setLoginData] = useState({
@@ -31,7 +37,7 @@ const LoginForm = ({ setDialogOpen, setMenuOpen }) => {
   const loginhandler = (e) => {
     e.preventDefault();
 
-    dispatch(getUserDetails(loginData));
+    dispatch(login(loginData));
   };
   const registerHandler = (e) => {
     e.preventDefault();
@@ -40,12 +46,12 @@ const LoginForm = ({ setDialogOpen, setMenuOpen }) => {
   };
 
   useEffect(() => {
-    if (userDetails.success) {
+    if (loginDetails.success) {
       toast.success(
-        `Welcome ${userDetails.data?.userDetails[0]?.firstName?.toUpperCase()}!`,
+        `Welcome ${loginDetails.data?.userDetails[0]?.firstName?.toUpperCase()}!`,
         {
-          position: "bottom-center",
-          autoClose: 3000,
+          position: "top-center",
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -58,14 +64,14 @@ const LoginForm = ({ setDialogOpen, setMenuOpen }) => {
       setDialogOpen(false);
       setMenuOpen(false);
       localStorage.setItem("user", JSON.stringify({ email: loginData.email }));
-      dispatch(clearUserDetailsStatus());
+      dispatch(clearLoginStatus());
     }
-  }, [userDetails.success]);
+  }, [loginDetails.success]);
   useEffect(() => {
-    if (userDetails.error) {
+    if (loginDetails.error) {
       toast.error("Invalid Username/Password", {
-        position: "bottom-center",
-        autoClose: 3000,
+        position: "top-center",
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -74,15 +80,15 @@ const LoginForm = ({ setDialogOpen, setMenuOpen }) => {
         theme: "dark",
       });
       setLoginData({ ...loginData, password: "" });
-      dispatch(clearUserDetailsStatus());
+      dispatch(clearLoginStatus());
     }
-  }, [userDetails.error]);
+  }, [loginDetails.error]);
 
   useEffect(() => {
     if (registationDetails.success) {
       toast.success("Registration SuccessFull , Please Login", {
-        position: "bottom-center",
-        autoClose: 3000,
+        position: "top-center",
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -94,6 +100,14 @@ const LoginForm = ({ setDialogOpen, setMenuOpen }) => {
       setLoginData({ ...loginData, email: registationDetails.data.user.email });
     }
   }, [registationDetails.success]);
+  useEffect(() => {
+    if (loginStatus) {
+      if (userId) {
+        console.log("userid", userId);
+        dispatch(getUserDetails({ userId: userId }));
+      }
+    }
+  }, [loginStatus]);
   useEffect(() => {
     const loginDetails = JSON.parse(localStorage.getItem("user"));
 
@@ -151,7 +165,11 @@ const LoginForm = ({ setDialogOpen, setMenuOpen }) => {
                   loginData.password?.length <= 5
                 }
               >
-                Login
+                {userDetails.loading ? (
+                  <CircularProgress style={{ color: "white" }} />
+                ) : (
+                  "Login"
+                )}
               </button>
             </>
           ) : (
@@ -222,7 +240,11 @@ const LoginForm = ({ setDialogOpen, setMenuOpen }) => {
                 className="submit"
                 onClick={registerHandler}
               >
-                Register
+                {userDetails.loading ? (
+                  <CircularProgress style={{ color: "white" }} />
+                ) : (
+                  "Register"
+                )}
               </button>
             </>
           )}

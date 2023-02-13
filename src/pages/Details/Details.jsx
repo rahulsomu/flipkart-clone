@@ -17,12 +17,20 @@ import { toast } from "react-toastify";
 import { formatPrice } from "../../Utils/functions";
 import { CircularProgress, Dialog } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import {
+  addToWishlist,
+  clearAddToWishlistStatus,
+  clearRemoveFromWishlistStatus,
+  removeFromWishlist,
+} from "../../redux/action/wishlistAction";
+import { getUserDetails } from "../../redux/action/getUserDetailsAction";
 
 const Details = ({ dialogOpen, setDialogOpen, handleClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const userDetails = useSelector((state) => state.userDetails);
+  const userId = userDetails.data && userDetails.data?.userDetails[0]?._id;
   const cart = useSelector((state) => state.cart).cart;
   const loggedIn = useSelector((state) => state.loggedIn).status;
   const user = userDetails.data && userDetails?.data?.userDetails[0];
@@ -30,6 +38,10 @@ const Details = ({ dialogOpen, setDialogOpen, handleClose }) => {
   const { data, success, error } = productDetails;
   const prodData = success && data?.data[0];
   const wishlist = useSelector((state) => state.wishlist).wishlist;
+  const addToWishlistStatus = useSelector((state) => state.addToWishlist);
+  const removeFromWishlistStatus = useSelector(
+    (state) => state.removeFromWishlist
+  );
 
   const [image, setImage] = useState("");
   const [variantSelected, setVariantSelected] = useState(null);
@@ -76,8 +88,8 @@ const Details = ({ dialogOpen, setDialogOpen, handleClose }) => {
         navigate("/cart");
       } else {
         toast.error(`Please select ${prodData?.variant?.type}`, {
-          position: "bottom-center",
-
+          position: "top-center",
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -89,8 +101,8 @@ const Details = ({ dialogOpen, setDialogOpen, handleClose }) => {
     } else {
       setDialogOpen(true);
       toast.error("Please Login First", {
-        position: "bottom-center",
-        autoClose: 3000,
+        position: "top-center",
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -104,9 +116,42 @@ const Details = ({ dialogOpen, setDialogOpen, handleClose }) => {
     setImageDialogOpen(false);
   };
   const wishlistHandler = () => {
-    dispatch(wishlistItems(prodData));
-    console.log(wishlist);
+    user?.wishlist.filter((item) => item._id === prodData._id).length > 0
+      ? dispatch(removeFromWishlist({ ...prodData, userId }))
+      : dispatch(addToWishlist({ ...prodData, userId }));
   };
+  useEffect(() => {
+    if (addToWishlistStatus.success) {
+      toast.success(`Added to Wishlist`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      dispatch(getUserDetails({ userId: userId }));
+      dispatch(clearAddToWishlistStatus());
+    }
+  }, [addToWishlistStatus.success]);
+  useEffect(() => {
+    if (removeFromWishlistStatus.success) {
+      toast.success(`Removed From Wishlist`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      dispatch(getUserDetails({ userId: userId }));
+      dispatch(clearRemoveFromWishlistStatus());
+    }
+  }, [removeFromWishlistStatus.success]);
   useEffect(() => {
     dispatch(getProductDetails(id));
     if (image) {
@@ -125,16 +170,23 @@ const Details = ({ dialogOpen, setDialogOpen, handleClose }) => {
                 ))}
               </div>
               <div className="main_image">
-                <button
-                  className="wishlist_icon_details"
-                  onClick={wishlistHandler}
-                >
-                  <FavoriteIcon
-                    style={{
-                      color: wishlist.includes(prodData) ? "red" : "#87878793",
-                    }}
-                  />
-                </button>
+                {user && (
+                  <button
+                    className="wishlist_icon_details"
+                    onClick={wishlistHandler}
+                  >
+                    <FavoriteIcon
+                      style={{
+                        color:
+                          user.wishlist?.filter(
+                            (item) => item._id == prodData?._id
+                          ).length > 0
+                            ? "red"
+                            : "#87878793",
+                      }}
+                    />
+                  </button>
+                )}
                 <img
                   src={image ? image : prodData?.mainImage}
                   onClick={() => setImageDialogOpen(true)}
