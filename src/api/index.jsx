@@ -102,3 +102,14 @@ export const removeFromWishlistApi = async (payload) => {
     };
   }
 };
+
+export const saveAddressApi = async (payload) => {
+  try {
+    const response = await axios.post(`${BASEURL}/user/saveaddress`, payload);
+    return response;
+  } catch (error) {
+    return {
+      error: error.response.status,
+    };
+  }
+};

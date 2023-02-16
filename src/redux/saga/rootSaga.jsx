@@ -7,6 +7,7 @@ import userDetailsWatcher from "./getUserDetailsSaga";
 import loginWatcher from "./loginSaga";
 import registerUserWatcher from "./registerUserSaga";
 import removeFromWishlistWatcher from "./removeFromWishlistSaga";
+import saveAddressWatcher, { saveAddressSaga } from "./saveAddressSaga";
 
 export default function* rootSaga() {
   const SAGAS = [
@@ -18,6 +19,7 @@ export default function* rootSaga() {
     addItemToCartWatcher,
     addToWishlistWatcher,
     removeFromWishlistWatcher,
+    saveAddressWatcher,
   ];
   yield all(
     SAGAS.map((saga) => {
