@@ -1,10 +1,10 @@
 import {
-  ADD_ITEM_TO_CART_LOADING,
-  ADD_ITEM_TO_CART_SUCCESS,
-  ADD_ITEM_TO_CART_FAILED,
+  SAVE_ORDER_LOADING,
+  SAVE_ORDER_SUCCESS,
+  SAVE_ORDER_FAILED,
 } from "../constants/actionTypes";
 
-const addItemToCartReducer = (
+const saveOrderReducer = (
   state = {
     success: "",
     data: "",
@@ -14,10 +14,10 @@ const addItemToCartReducer = (
   action
 ) => {
   switch (action.type) {
-    case ADD_ITEM_TO_CART_LOADING: {
-      return { ...state, loading: true, success: "", error: "", data: "" };
+    case SAVE_ORDER_LOADING: {
+      return { ...state, loading: true, success: false };
     }
-    case ADD_ITEM_TO_CART_SUCCESS: {
+    case SAVE_ORDER_SUCCESS: {
       return {
         ...state,
         loading: false,
@@ -26,7 +26,7 @@ const addItemToCartReducer = (
         error: "",
       };
     }
-    case ADD_ITEM_TO_CART_FAILED: {
+    case SAVE_ORDER_FAILED: {
       return {
         ...state,
         loading: false,
@@ -34,14 +34,10 @@ const addItemToCartReducer = (
         error: action.payload,
       };
     }
-    case "RESET_CART": {
-      return {
-        ...state,
-      };
-    }
+
     default: {
       return state;
     }
   }
 };
-export default addItemToCartReducer;
+export default saveOrderReducer;

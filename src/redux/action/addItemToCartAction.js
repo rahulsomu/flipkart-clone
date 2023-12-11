@@ -21,3 +21,8 @@ export const addItemToCartFailed = (error) => ({
   type: ADD_ITEM_TO_CART_FAILED,
   payload: error,
 });
+
+export const resetCart = (payload) => ({
+  type: "RESET_CART",
+  payload: payload,
+});

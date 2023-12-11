@@ -13,6 +13,7 @@ import loginReducer from "./loginReducer";
 import registerUserReducer from "./registerUserReducer";
 import removeFromWishlistReducer from "./removeFromWishlistReducer";
 import saveAddressReducer from "./saveAddressReducer";
+import saveOrderReducer from "./saveOrderReducer";
 
 const reducers = combineReducers({
   userDetails: getUserDetailsReducer,
@@ -27,5 +28,6 @@ const reducers = combineReducers({
   removeFromWishlist: removeFromWishlistReducer,
   wishlist: wishlistItemsReducer,
   saveAddress: saveAddressReducer,
+  orderHistory: saveOrderReducer,
 });
 export default reducers;

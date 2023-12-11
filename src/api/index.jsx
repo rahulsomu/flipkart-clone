@@ -113,3 +113,14 @@ export const saveAddressApi = async (payload) => {
     };
   }
 };
+
+export const saveOrderApi = async (payload) => {
+  try {
+    const response = await axios.post(`${BASEURL}/user/saveOrder`, payload);
+    return response;
+  } catch (error) {
+    return {
+      error: error.response.status,
+    };
+  }
+};
