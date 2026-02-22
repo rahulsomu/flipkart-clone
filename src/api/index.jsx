@@ -3,7 +3,7 @@ import axios from "axios";
 const currentURL = window.location.origin;
 
 let BASEURL =
-  currentURL == "https://my-flipkart.netlify.app"
+  currentURL == "https://flipi.netlify.app/"
     ? "https://flipkart-backend-4sym.onrender.com"
     : "http://localhost:8000";
 
