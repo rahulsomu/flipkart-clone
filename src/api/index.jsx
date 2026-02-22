@@ -2,10 +2,10 @@ import axios from "axios";
 
 const currentURL = window.location.origin;
 
-let BASEURL =
-  currentURL == "https://flipi.netlify.app/"
-    ? "https://flipkart-backend-4sym.onrender.com"
-    : "http://localhost:8000";
+let BASEURL = process.env.APIENDPOINT
+  // currentURL == "https://flipi.netlify.app/"
+  //   ? "https://flipkart-backend-4sym.onrender.com"
+  //   : "http://localhost:8000";
 
 export const loginApi = async (payload) => {
   try {
